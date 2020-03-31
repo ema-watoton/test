@@ -1,0 +1,845 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "rpw",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "030eadcdfe73419d82ae56b8d15a71f9",
+      "Name": "Boolean",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "True と False のいずれかを選択します。"
+    },
+    {
+      "Id": "380725785e494ed6b53c00e672f9078f",
+      "Name": "Number Slider",
+      "Type": "number",
+      "Value": "0",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "NumberType": "Double",
+      "Description": "数値を生成するスライダ。"
+    },
+    {
+      "Id": "8917ab5a6606446a815cbb237f4c56e7",
+      "Name": "Boolean",
+      "Type": "boolean",
+      "Value": "false",
+      "Description": "True と False のいずれかを選択します。"
+    },
+    {
+      "Id": "4cdc6593f8284e97898d1fc43bc1d819",
+      "Name": "Boolean",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "True と False のいずれかを選択します。"
+    }
+  ],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "adc0f16a64af4d5b89e6a3cbff8c3400",
+      "Inputs": [
+        {
+          "Id": "62be6ecbfa39492aae7fd2d44cf2bf09",
+          "Name": "",
+          "Description": "評価するノード。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8f524403acfc41758f8115970e1fc2f2",
+          "Name": "",
+          "Description": "内容を確認します。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "ノードの出力を視覚化します。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\nsys.path.append(IN[0])\n\nfrom rpw.db import Element\nfrom rpw.db import Collector\n\n\nall_col = Collector(of_category='Walls', is_not_type=True)\ncol = Collector(of_category='Walls', level = \"レベル 1\")\n\nall_wall = all_col.elements\nwall = col.elements\n#param_name = wall.parameters.builtins['WALL_BOTTOM_IS_ATTACHED'].name\n#param_value = wall.parameters.builtins['WALL_BOTTOM_IS_ATTACHED'].value\n\n\n\nOUT = [all_wall, wall]",
+      "VariableInputPorts": true,
+      "Id": "8fc60724e5a944e8822295e0add09abc",
+      "Inputs": [
+        {
+          "Id": "7cd105ebd44646d2a136621e30d73706",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7e657d23927a4656bb0b669d53131032",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CustomNodes.Function, DynamoCore",
+      "FunctionSignature": "fcef74d0-aad3-400e-b164-44eb84383acb",
+      "FunctionType": "Graph",
+      "NodeType": "FunctionNode",
+      "Id": "2d95001e6d6e4d8087eb1aee35b02ca4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "cc6f41bf08a644cd8f34387a21a6773b",
+          "Name": "",
+          "Description": "戻り値",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": ""
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\nsys.path.append(IN[0])\n\nfrom rpw.ui import forms\n\nif IN[1]:\n\toptions = IN[2]\n\tselected = forms.SelectFromList('Test', options)\n\tOUT = selected\n\n",
+      "VariableInputPorts": true,
+      "Id": "7110cfdd57f246479fd9e5676e774622",
+      "Inputs": [
+        {
+          "Id": "9d055f890dee497a9fdb3940b6c27f5e",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "eaabc6c129a549d6848006327cdaedea",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "90307c488109454ba772723e64e794a1",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "059e451b17064b0ba7115f25636adf1d",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "030eadcdfe73419d82ae56b8d15a71f9",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "97a3f01c53b74b25a843def09f3fa0b0",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "True と False のいずれかを選択します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "fbf9ac8b1ade427483ba2a9f7a38b4b1",
+      "Inputs": [
+        {
+          "Id": "00e2d83f43854f67bc4c1f338559c800",
+          "Name": "",
+          "Description": "評価するノード。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "00c0e4854d90406fbff601e783fd7222",
+          "Name": "",
+          "Description": "内容を確認します。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "ノードの出力を視覚化します。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\r\nsys.path.append(IN[0])\r\n\r\nimport rpw\r\n\r\nlevel = rpw.db.Collector(of_category='OST_Levels', is_not_type=True).first\r\n\r\nwith rpw.db.Transaction('Add Comment'):\r\n\tlevel.Elevation = IN[1]",
+      "VariableInputPorts": true,
+      "Id": "546262422b074bbd8d8f6a38426cca1b",
+      "Inputs": [
+        {
+          "Id": "f478459ab4da476bad606d63f17d0b16",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bdde69f7dd2e4b60b91980315f48b24e",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "82c5854ab56841e8b8d5544a83b287a2",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 100.0,
+      "MinimumValue": 0.0,
+      "StepValue": 0.1,
+      "InputValue": 0.0,
+      "Id": "380725785e494ed6b53c00e672f9078f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "3b6450c7d0524555bb8ba2ead10548ad",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "数値を生成するスライダ。"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"level1\",\"level2\",\"level3\"];",
+      "Id": "a87856e905d548108fda10717724c355",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "79b113dc405d44e99ada47bda399fa21",
+          "Name": "",
+          "Description": "行 1 の式の値",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "DesignScript のコードを直接作成することができます。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\nsys.path.append(IN[0])\n\nif IN[1]:\n\tfrom rpw.ui.forms import TextInput\n\tvalue = TextInput('Title', default=\"3\")\n\nOUT = value\n",
+      "VariableInputPorts": true,
+      "Id": "e03ba805231947919a01b36df22a864e",
+      "Inputs": [
+        {
+          "Id": "ceb8ff942a9748359d8d3438808c3921",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8ccb5a59cdc343cb8d8d361f64790e7d",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "39fcd7bcae9c41418b7b9a225c984799",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "a88eddc64bed4f7883757583832d5454",
+      "Inputs": [
+        {
+          "Id": "0a28b431868e4d7987bf2e234706cd0a",
+          "Name": "",
+          "Description": "評価するノード。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c7a2144f3ca642fa8ef4e7bde221c106",
+          "Name": "",
+          "Description": "内容を確認します。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "ノードの出力を視覚化します。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\nsys.path.append(IN[0])\n\n\nfrom rpw.ui.forms import Alert\n\n\nif IN[1]:\n\tAlert('ちょっと変わった建築学生', title=\"エラー\", header=\"コロナに負けるな\")\n",
+      "VariableInputPorts": true,
+      "Id": "52ed1ed348dc4327a43c3ddfd2d6bf77",
+      "Inputs": [
+        {
+          "Id": "8a50d73ae4ac4f3e8654670c050e5904",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c67307a73fd242e6acde14f98828d784",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b19cdebc24004aaab5bb55569fed75c2",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "8917ab5a6606446a815cbb237f4c56e7",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "351b727ce022470a9852507bce99d170",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "True と False のいずれかを選択します。"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\nsys.path.append(IN[0])\n\n\nfrom rpw.ui.forms import (FlexForm, Label,TextBox,ComboBox,                                   \t\t\t\t\t      TextBox,Separator, Button, CheckBox)\n                           \n                           \n                         \ncomponents = [Label('level:'),\n              ComboBox(\"Text\", IN[2]),\n              Label('level high:'),\n              TextBox('textbox1', Text=\"Default Value\"),\n              Label('true/false:'),\n              CheckBox('checkbox1', 'Check this'),\n              Separator(),\n              Button('Select')]\n\nform = FlexForm('Title', components)\nif IN[1]:\n\tform.show()\n\nOUT = str(form.values)\n",
+      "VariableInputPorts": true,
+      "Id": "15bcafa99c2a491e8990316045d042eb",
+      "Inputs": [
+        {
+          "Id": "c25b9742ff5f402fbe3b96071d30965b",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8bc1e64391ac47538b996be420612e7a",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6c7b4753796b475082ee1c4edfb28d4f",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f42a01b7ed3d4aac8f82ed4541e28370",
+          "Name": "OUT",
+          "Description": "Python スクリプトの結果",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "埋め込み IronPython スクリプトを実行します。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "4cdc6593f8284e97898d1fc43bc1d819",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5f70aadd9f314ae2a8d13b27aa525d89",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "True と False のいずれかを選択します。"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"level1\",\"level2\",\"level3\"];",
+      "Id": "9254ba8f617b4ee989ae819b0a6894c6",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9457f3983482462787f8b6a26e7c6218",
+          "Name": "",
+          "Description": "行 1 の式の値",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "DesignScript のコードを直接作成することができます。"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "3d229de0fd194fc5bc8b314a4b99ebec",
+      "Inputs": [
+        {
+          "Id": "3de1508e86a64c5da7662099ad5e7702",
+          "Name": "",
+          "Description": "評価するノード。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cb8677cf7b1c41fb803dcd4819051e20",
+          "Name": "",
+          "Description": "内容を確認します。",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "ノードの出力を視覚化します。"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "7e657d23927a4656bb0b669d53131032",
+      "End": "62be6ecbfa39492aae7fd2d44cf2bf09",
+      "Id": "222e9090898140baadd3b24654f787d9"
+    },
+    {
+      "Start": "cc6f41bf08a644cd8f34387a21a6773b",
+      "End": "9d055f890dee497a9fdb3940b6c27f5e",
+      "Id": "a99cc4c6d7034a988ef80e5b5365342b"
+    },
+    {
+      "Start": "cc6f41bf08a644cd8f34387a21a6773b",
+      "End": "7cd105ebd44646d2a136621e30d73706",
+      "Id": "4b9a27a73dd14506befdec14d7769062"
+    },
+    {
+      "Start": "cc6f41bf08a644cd8f34387a21a6773b",
+      "End": "f478459ab4da476bad606d63f17d0b16",
+      "Id": "65de9c01849441f79cce35471df6194d"
+    },
+    {
+      "Start": "cc6f41bf08a644cd8f34387a21a6773b",
+      "End": "ceb8ff942a9748359d8d3438808c3921",
+      "Id": "ea0a53796172477bb44d68cce6f3e502"
+    },
+    {
+      "Start": "cc6f41bf08a644cd8f34387a21a6773b",
+      "End": "8a50d73ae4ac4f3e8654670c050e5904",
+      "Id": "54decb9f36994299b68a33d20a57764c"
+    },
+    {
+      "Start": "cc6f41bf08a644cd8f34387a21a6773b",
+      "End": "c25b9742ff5f402fbe3b96071d30965b",
+      "Id": "18e94aeedb2f4b88b879a1e771603e03"
+    },
+    {
+      "Start": "059e451b17064b0ba7115f25636adf1d",
+      "End": "00e2d83f43854f67bc4c1f338559c800",
+      "Id": "46036270c7494ecabe486bfc25b1d80d"
+    },
+    {
+      "Start": "97a3f01c53b74b25a843def09f3fa0b0",
+      "End": "eaabc6c129a549d6848006327cdaedea",
+      "Id": "a616b7373ea145efbdc40745fcc7b41f"
+    },
+    {
+      "Start": "97a3f01c53b74b25a843def09f3fa0b0",
+      "End": "8ccb5a59cdc343cb8d8d361f64790e7d",
+      "Id": "53390787811a48c483954b9209df9285"
+    },
+    {
+      "Start": "3b6450c7d0524555bb8ba2ead10548ad",
+      "End": "bdde69f7dd2e4b60b91980315f48b24e",
+      "Id": "c7ab2aaebd70468384c089bac0733f79"
+    },
+    {
+      "Start": "79b113dc405d44e99ada47bda399fa21",
+      "End": "90307c488109454ba772723e64e794a1",
+      "Id": "b9326c8c163746b4b911de4a3b13f40d"
+    },
+    {
+      "Start": "39fcd7bcae9c41418b7b9a225c984799",
+      "End": "0a28b431868e4d7987bf2e234706cd0a",
+      "Id": "adfa0ddbc75d46b5984548a59956b08a"
+    },
+    {
+      "Start": "351b727ce022470a9852507bce99d170",
+      "End": "c67307a73fd242e6acde14f98828d784",
+      "Id": "6000b0c8bbb94a119f874c63819dcd2d"
+    },
+    {
+      "Start": "f42a01b7ed3d4aac8f82ed4541e28370",
+      "End": "3de1508e86a64c5da7662099ad5e7702",
+      "Id": "4e3aaefd543c47da8c52061a6cf09b2a"
+    },
+    {
+      "Start": "5f70aadd9f314ae2a8d13b27aa525d89",
+      "End": "8bc1e64391ac47538b996be420612e7a",
+      "Id": "d2c996b40a384874ac237782fc038997"
+    },
+    {
+      "Start": "9457f3983482462787f8b6a26e7c6218",
+      "End": "6c7b4753796b475082ee1c4edfb28d4f",
+      "Id": "f5b30632d5cb45c49dc75a6064929abf"
+    }
+  ],
+  "Dependencies": [
+    "fcef74d0-aad3-400e-b164-44eb84383acb"
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.3.8810",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "背景プレビュー",
+      "EyeX": 13.811168670654297,
+      "EyeY": 78.680435180664063,
+      "EyeZ": 44.118766784667969,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Get Levels",
+        "Id": "adc0f16a64af4d5b89e6a3cbff8c3400",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 627.09717681666575,
+        "Y": 606.72016645108954
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "8fc60724e5a944e8822295e0add09abc",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 373.32454630588035,
+        "Y": 606.28180847290741
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "RPW_GetFilepath",
+        "Id": "2d95001e6d6e4d8087eb1aee35b02ca4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -554.892097587576,
+        "Y": 704.126962923783
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "7110cfdd57f246479fd9e5676e774622",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 776.76509873347641,
+        "Y": 1079.8971753575822
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "030eadcdfe73419d82ae56b8d15a71f9",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 511.96492333973907,
+        "Y": 1098.8310408957136
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Result",
+        "Id": "fbf9ac8b1ade427483ba2a9f7a38b4b1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 963.491397362455,
+        "Y": 1073.3361072788459
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Transaction",
+        "Id": "546262422b074bbd8d8f6a38426cca1b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 691.66578194898568,
+        "Y": 859.0003486305867
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Number Slider",
+        "Id": "380725785e494ed6b53c00e672f9078f",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 300.64067211727149,
+        "Y": 891.72682441989662
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "a87856e905d548108fda10717724c355",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 420.96570835487358,
+        "Y": 1189.0002368123842
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "e03ba805231947919a01b36df22a864e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 776.98498771720972,
+        "Y": 1276.7770903067644
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Result",
+        "Id": "a88eddc64bed4f7883757583832d5454",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 991.75306884313511,
+        "Y": 1278.9333047349983
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "52ed1ed348dc4327a43c3ddfd2d6bf77",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 774.88680175802426,
+        "Y": 1417.1922384698009
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "8917ab5a6606446a815cbb237f4c56e7",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 560.45674354225218,
+        "Y": 1468.3775606034972
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "15bcafa99c2a491e8990316045d042eb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 780.44394335956645,
+        "Y": 1629.6871184252557
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "4cdc6593f8284e97898d1fc43bc1d819",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 558.82229251909166,
+        "Y": 1592.9799541924822
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "9254ba8f617b4ee989ae819b0a6894c6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 416.9283425116102,
+        "Y": 1670.346353404743
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Result",
+        "Id": "3d229de0fd194fc5bc8b314a4b99ebec",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 965.25137219609746,
+        "Y": 1631.0106078924416
+      }
+    ],
+    "Annotations": [],
+    "X": -7.4516567620287333,
+    "Y": -666.52340293498742,
+    "Zoom": 0.687767602490998
+  }
+}
